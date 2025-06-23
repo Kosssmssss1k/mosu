@@ -44,7 +44,7 @@ namespace mosu
                     double control = pid.Update(error, dt);
                     double valveAdjustmentSpeed = 1;
 
-                    // Базове керування вхід/вихід для бака 1
+
                     model.x_in_1_0 += control * valveAdjustmentSpeed * dt;
                     model.x_in_1_0 = Clamp(model.x_in_1_0, 0, 1);
 
@@ -161,6 +161,17 @@ namespace mosu
                 btnMode.Text = "Переключити на Авто";
                 lblMode.Text = "Режим: Ручний";
             }
+        }
+
+        private void btnGauss_Click(object sender, EventArgs e)
+        {
+            var optimizer = new GaussSeidelOptimizer();
+            var(u1, u2, iters) = optimizer.Minimize(2, 2);
+
+            lblGauss.Text = $"u1 = {u1:F4}\n" +
+                       $"u2 = {u2:F4}\n" +
+                       $"Iterations = {iters}";
+
         }
     }
 }

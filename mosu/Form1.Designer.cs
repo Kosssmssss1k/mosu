@@ -36,6 +36,8 @@
             this.btnDecreaseIn1 = new System.Windows.Forms.Button();
             this.btnMode = new System.Windows.Forms.Button();
             this.lblMode = new System.Windows.Forms.Label();
+            this.btnGauss = new System.Windows.Forms.Button();
+            this.lblGauss = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -119,11 +121,31 @@
             this.lblMode.TabIndex = 8;
             this.lblMode.Text = "Режим: Ручний";
             // 
+            // btnGauss
+            // 
+            this.btnGauss.Location = new System.Drawing.Point(768, 119);
+            this.btnGauss.Name = "btnGauss";
+            this.btnGauss.Size = new System.Drawing.Size(75, 23);
+            this.btnGauss.TabIndex = 9;
+            this.btnGauss.Text = "Optimize";
+            this.btnGauss.UseVisualStyleBackColor = true;
+            this.btnGauss.Click += new System.EventHandler(this.btnGauss_Click);
+            // 
+            // lblGauss
+            // 
+            this.lblGauss.AutoSize = true;
+            this.lblGauss.Location = new System.Drawing.Point(849, 122);
+            this.lblGauss.Name = "lblGauss";
+            this.lblGauss.Size = new System.Drawing.Size(0, 16);
+            this.lblGauss.TabIndex = 10;
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1067, 554);
+            this.Controls.Add(this.lblGauss);
+            this.Controls.Add(this.btnGauss);
             this.Controls.Add(this.lblMode);
             this.Controls.Add(this.btnMode);
             this.Controls.Add(this.btnDecreaseIn1);
@@ -150,6 +172,8 @@
         private System.Windows.Forms.Button btnDecreaseIn1;
         private System.Windows.Forms.Button btnMode;
         private System.Windows.Forms.Label lblMode;
+        private System.Windows.Forms.Button btnGauss;
+        private System.Windows.Forms.Label lblGauss;
     }
 }
 
