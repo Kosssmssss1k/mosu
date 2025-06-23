@@ -13,6 +13,10 @@ namespace mosu
         private PIDController pid = new PIDController(10, 0.5, 1);
         private bool isAutoMode = false;
 
+        private double optimizedKp;
+        private double optimizedTi;
+        private bool hasOptimizedValues = false;
+
         private NumericUpDown numKp;
         private NumericUpDown numKi;
         private NumericUpDown numKd;
@@ -27,7 +31,7 @@ namespace mosu
 
         private void Form1_Load(object sender, EventArgs e)
         {
-            InitializeTimer(); // Запуск таймера при завантаженні форми
+          
         }
 
         private void InitializeTimer()
@@ -155,6 +159,18 @@ namespace mosu
                 btnMode.Text = "Переключити на Ручний";
                 lblMode.Text = "Режим: Авто";
                 pid.Reset(); // скидання інтегралу для уникнення насичення
+
+                if (hasOptimizedValues)
+                {
+                    pid.Kp = optimizedKp;
+                    pid.Ki = optimizedKp / optimizedTi;
+                    pid.Kd = 0; // PI
+
+                    numKp.Value = (decimal)optimizedKp;
+                    numKi.Value = (decimal)(optimizedKp / optimizedTi);
+                    numKd.Value = 0;
+                }
+
             }
             else
             {
@@ -165,14 +181,37 @@ namespace mosu
 
         private void btnGauss_Click(object sender, EventArgs e)
         {
-            var optimizer = new GaussSeidelOptimizer();
-            var(u1, u2, iters) = optimizer.Minimize(2, 2);
+            var optimizer = new GaussOptimizer((kp, ti) =>
+            {
+                var piSim = new mosu.HydraulicSystem.PIRegulatorOptimizer();
+                var (ise, _) = piSim.Simulate(kp, ti);
+                return ise;
+            });
 
-            lblGauss.Text = $"u1 = {u1:F4}\n" +
-                       $"u2 = {u2:F4}\n" +
-                       $"Iterations = {iters}";
+            (double bestKp, double bestTi, double bestISE, int iterations) = optimizer.Optimize(1.0, 70.0);
+
+
+            optimizedKp = bestKp;
+            optimizedTi = bestTi;
+            hasOptimizedValues = true;
+
+            MessageBox.Show($"[Gauss Optimizer Result]\nKp = {bestKp:F3}, Ti = {bestTi:F1}\nISE = {bestISE:F5}\nIterations = {iterations}", "Gauss Optimization");
 
         }
+
+        private void btnPIoptimize_Click(object sender, EventArgs e)
+        {
+            var optimizer = new mosu.HydraulicSystem.PIRegulatorOptimizer();
+            var (bestKp, bestTi, bestISE, bestDev) = optimizer.Optimize();
+
+            optimizedKp = bestKp;
+            optimizedTi = bestTi;
+            hasOptimizedValues = true;
+
+            MessageBox.Show($"Optimal Kp = {bestKp:F3}\nOptimal Ti = {bestTi:F1}\nISE = {bestISE:F5}\nMax Dev = {bestDev:F5}", "Optimization Result");
+        }
+
+   
     }
 }
 

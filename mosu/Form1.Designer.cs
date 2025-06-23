@@ -38,6 +38,8 @@
             this.lblMode = new System.Windows.Forms.Label();
             this.btnGauss = new System.Windows.Forms.Button();
             this.lblGauss = new System.Windows.Forms.Label();
+            this.btnPIoptimize = new System.Windows.Forms.Button();
+            this.lblPI = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -123,11 +125,11 @@
             // 
             // btnGauss
             // 
-            this.btnGauss.Location = new System.Drawing.Point(768, 119);
+            this.btnGauss.Location = new System.Drawing.Point(733, 116);
             this.btnGauss.Name = "btnGauss";
-            this.btnGauss.Size = new System.Drawing.Size(75, 23);
+            this.btnGauss.Size = new System.Drawing.Size(110, 29);
             this.btnGauss.TabIndex = 9;
-            this.btnGauss.Text = "Optimize";
+            this.btnGauss.Text = "Gauss Optimize";
             this.btnGauss.UseVisualStyleBackColor = true;
             this.btnGauss.Click += new System.EventHandler(this.btnGauss_Click);
             // 
@@ -139,11 +141,31 @@
             this.lblGauss.Size = new System.Drawing.Size(0, 16);
             this.lblGauss.TabIndex = 10;
             // 
+            // btnPIoptimize
+            // 
+            this.btnPIoptimize.Location = new System.Drawing.Point(733, 166);
+            this.btnPIoptimize.Name = "btnPIoptimize";
+            this.btnPIoptimize.Size = new System.Drawing.Size(110, 29);
+            this.btnPIoptimize.TabIndex = 11;
+            this.btnPIoptimize.Text = "PI Optimize";
+            this.btnPIoptimize.UseVisualStyleBackColor = true;
+            this.btnPIoptimize.Click += new System.EventHandler(this.btnPIoptimize_Click);
+            // 
+            // lblPI
+            // 
+            this.lblPI.AutoSize = true;
+            this.lblPI.Location = new System.Drawing.Point(849, 172);
+            this.lblPI.Name = "lblPI";
+            this.lblPI.Size = new System.Drawing.Size(0, 16);
+            this.lblPI.TabIndex = 12;
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1067, 554);
+            this.Controls.Add(this.lblPI);
+            this.Controls.Add(this.btnPIoptimize);
             this.Controls.Add(this.lblGauss);
             this.Controls.Add(this.btnGauss);
             this.Controls.Add(this.lblMode);
@@ -174,6 +196,8 @@
         private System.Windows.Forms.Label lblMode;
         private System.Windows.Forms.Button btnGauss;
         private System.Windows.Forms.Label lblGauss;
+        private System.Windows.Forms.Button btnPIoptimize;
+        private System.Windows.Forms.Label lblPI;
     }
 }
 

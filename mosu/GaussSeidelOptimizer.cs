@@ -1,40 +1,72 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
 namespace mosu
 {
-    public class GaussSeidelOptimizer
+    public class GaussOptimizer
     {
         private const double Epsilon = 1e-6;
+        private const double h = 0.1;
         private const int MaxIterations = 1000;
 
-        private double I(double u1, double u2)
+        private Func<double, double, double> targetFunction;
+
+        public GaussOptimizer(Func<double, double, double> function)
         {
-            return 1 - (u1 * u1 - u2 * u2) + u1 * u2 - 10 * u2 * u2;
+            targetFunction = function;
         }
 
-        public (double u1, double u2, int iterations) Minimize(double u1, double u2)
+        public (double u1, double u2, double value, int iterations) Optimize(double u1Start, double u2Start)
         {
+            double u1 = u1Start;
+            double u2 = u2Start;
             int iter = 0;
-            const double learningRate = 0.01;
 
             while (iter < MaxIterations)
             {
-                double prevU1 = u1;
-                double prevU2 = u2;
+                double current = targetFunction(u1, u2);
+                double best = current;
+                double newU1 = u1;
+                double newU2 = u2;
 
-                double gradU1 = -2 * u1 + u2;
-                u1 -= learningRate * gradU1;
+                double forwardU1 = targetFunction(u1 + h, u2);
+                double backwardU1 = targetFunction(u1 - h, u2);
+                if (forwardU1 < best)
+                {
+                    best = forwardU1;
+                    newU1 = u1 + h;
+                }
+                else if (backwardU1 < best)
+                {
+                    best = backwardU1;
+                    newU1 = u1 - h;
+                }
 
-                double gradU2 = u1 - 18 * u2;
-                u2 -= learningRate * gradU2;
+                double forwardU2 = targetFunction(newU1, u2 + h);
+                double backwardU2 = targetFunction(newU1, u2 - h);
+                if (forwardU2 < best)
+                {
+                    best = forwardU2;
+                    newU2 = u2 + h;
+                }
+                else if (backwardU2 < best)
+                {
+                    best = backwardU2;
+                    newU2 = u2 - h;
+                }
 
-                if (Math.Abs(u1 - prevU1) < Epsilon && Math.Abs(u2 - prevU2) < Epsilon)
+                if (Math.Abs(newU1 - u1) < Epsilon && Math.Abs(newU2 - u2) < Epsilon)
                     break;
 
+                u1 = newU1;
+                u2 = newU2;
                 iter++;
             }
 
-            return (u1, u2, iter);
+            return (u1, u2, targetFunction(u1, u2), iter);
         }
     }
 }
