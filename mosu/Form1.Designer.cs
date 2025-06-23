@@ -34,6 +34,8 @@
             this.btnDecreaseOut = new System.Windows.Forms.Button();
             this.btnIncreaseIn1 = new System.Windows.Forms.Button();
             this.btnDecreaseIn1 = new System.Windows.Forms.Button();
+            this.btnMode = new System.Windows.Forms.Button();
+            this.lblMode = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -98,11 +100,32 @@
             this.btnDecreaseIn1.UseVisualStyleBackColor = false;
             this.btnDecreaseIn1.Click += new System.EventHandler(this.btnDecreaseIn1_Click);
             // 
+            // btnMode
+            // 
+            this.btnMode.Location = new System.Drawing.Point(768, 55);
+            this.btnMode.Name = "btnMode";
+            this.btnMode.Size = new System.Drawing.Size(75, 23);
+            this.btnMode.TabIndex = 7;
+            this.btnMode.Text = "Mode";
+            this.btnMode.UseVisualStyleBackColor = true;
+            this.btnMode.Click += new System.EventHandler(this.btnMode_Click);
+            // 
+            // lblMode
+            // 
+            this.lblMode.AutoSize = true;
+            this.lblMode.Location = new System.Drawing.Point(849, 58);
+            this.lblMode.Name = "lblMode";
+            this.lblMode.Size = new System.Drawing.Size(105, 16);
+            this.lblMode.TabIndex = 8;
+            this.lblMode.Text = "Режим: Ручний";
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1067, 554);
+            this.Controls.Add(this.lblMode);
+            this.Controls.Add(this.btnMode);
             this.Controls.Add(this.btnDecreaseIn1);
             this.Controls.Add(this.btnIncreaseIn1);
             this.Controls.Add(this.btnDecreaseOut);
@@ -114,6 +137,7 @@
             this.Load += new System.EventHandler(this.Form1_Load);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
@@ -124,6 +148,8 @@
         private System.Windows.Forms.Button btnDecreaseOut;
         private System.Windows.Forms.Button btnIncreaseIn1;
         private System.Windows.Forms.Button btnDecreaseIn1;
+        private System.Windows.Forms.Button btnMode;
+        private System.Windows.Forms.Label lblMode;
     }
 }
 

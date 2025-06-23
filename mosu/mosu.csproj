@@ -53,6 +53,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="HydraulicSystem.cs" />
+    <Compile Include="PIDcontroller.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Hydraulic.cs">
       <SubType>Form</SubType>
